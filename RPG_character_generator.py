@@ -98,18 +98,44 @@ def generar_proposito_vida(sexo):
     else:
         return random.choice(propositos_vida_neutros)
 
+def generar_historia_lugar(lugar):
+    historia = ""
+    if lugar in lugares_magicos_masculinos:
+        historia = "Exploró los profundos valles de la Luna, descubriendo los secretos ocultos de antiguas razas."
+    elif lugar in lugares_magicos_femeninos:
+        historia = "Recorrió los bosques de cristal en busca de la verdad y la sabiduría ancestral de las lunas plateadas."
+    else:
+        historia = "Se aventuró en el misterioso Valle de las Maravillas, enfrentando peligros y desentrañando enigmas."
+    return historia
+
+def generar_historia_profesion(profesion):
+    historia = ""
+    if profesion in profesiones_fantasticas:
+        historia = "Dominó los elementos y desató poderosos hechizos para proteger a los indefensos y mantener el equilibrio en el mundo."
+    elif profesion in profesiones_cotidianas:
+        historia = "Construyó una reputación como el mejor artesano de armaduras legendarias, forjando protección impenetrable para los valientes guerreros."
+    return historia
+
+def generar_historia_apellido(apellido):
+    historia = f"El apellido {apellido} resonaba en los corazones de aquellos que conocían su legado épico, evocando historias de heroísmo y valentía."
+    return historia
+
 def imprimir_stats(stats):
     nombres_stats = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma"]
     for nombre, valor in zip(nombres_stats, stats):
         print(f"{nombre}: {valor}")
 
 def imprimir_trasfondo_epico(personaje, lugar_magico, transfondo_infancia, tipo_crianza, tipo_voluntad, proposito_vida):
+    historia_lugar = generar_historia_lugar(lugar_magico)
+    historia_profesion = generar_historia_profesion(profesion_personaje)
+    historia_apellido = generar_historia_apellido(apellido_personaje)
+
     if personaje[1] == "Masculino":
-        print(f"\n{personaje[0]}, el valiente {personaje[1]}, nació en {lugar_magico}. Desde una tierna infancia, fue {transfondo_infancia} y recibió una {tipo_crianza} que moldeó su carácter. Posee una voluntad de {tipo_voluntad} y ha jurado {proposito_vida}.")
+        print(f"\n{personaje[0]}, el valiente {personaje[1]}, nació en {lugar_magico}. {historia_lugar} Desde una tierna infancia, fue {transfondo_infancia} y recibió una {tipo_crianza} que moldeó su carácter. Posee una voluntad de {tipo_voluntad} y ha jurado {proposito_vida}. {historia_profesion} {historia_apellido}")
     elif personaje[1] == "Femenino":
-        print(f"\n{personaje[0]}, la intrépida {personaje[1]}, nació en {lugar_magico}. Desde una tierna infancia, fue {transfondo_infancia} y recibió una {tipo_crianza} que moldeó su carácter. Posee una voluntad de {tipo_voluntad} y ha jurado {proposito_vida}.")
+        print(f"\n{personaje[0]}, la intrépida {personaje[1]}, nació en {lugar_magico}. {historia_lugar} Desde una tierna infancia, fue {transfondo_infancia} y recibió una {tipo_crianza} que moldeó su carácter. Posee una voluntad de {tipo_voluntad} y ha jurado {proposito_vida}. {historia_profesion} {historia_apellido}")
     else:
-        print(f"\n{personaje[0]}, el misterioso {personaje[1]}, nació en {lugar_magico}. Desde una tierna infancia, fue {transfondo_infancia} y recibió una {tipo_crianza} que moldeó su carácter. Posee una voluntad de {tipo_voluntad} y ha jurado {proposito_vida}.")
+        print(f"\n{personaje[0]}, el misterioso {personaje[1]}, nació en {lugar_magico}. {historia_lugar} Desde una tierna infancia, fue {transfondo_infancia} y recibió una {tipo_crianza} que moldeó su carácter. Posee una voluntad de {tipo_voluntad} y ha jurado {proposito_vida}. {historia_profesion} {historia_apellido}")
 
 # Generar y mostrar el nombre, apellido y sexo del personaje
 nombre_personaje, sexo_personaje = generar_nombre_sexo()
@@ -136,3 +162,4 @@ imprimir_trasfondo_epico((nombre_personaje, sexo_personaje), lugar_magico, trans
 stats_personaje = generar_stats()
 print("\nStats del personaje:")
 imprimir_stats(stats_personaje)
+
