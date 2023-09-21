@@ -1,26 +1,26 @@
-
-import freeGPT
-from PIL import Image
-from io import BytesIO
-from asyncio import run
-
 async def main():
-    while True:
-        try:
-            # Solicitar la ruta del archivo .txt al usuario
-            txt_file_path = input("Por favor, ingresa la ruta del archivo .txt que contiene el prompt: ")
-            
-            # Leer el contenido del archivo .txt
-            with open(txt_file_path, "r") as file:
-                prompt = file.read()
+    try:
+        # Solicitar la ruta del archivo .txt al usuario
+        txt_file_path = input("Por favor, ingresa la ruta del archivo .txt que contiene el prompt: ")
 
+        # Leer el contenido del archivo .txt
+        with open(txt_file_path, "r") as file:
+            prompt = file.read()
+
+        output_folder = os.path.dirname(os.path.abspath(txt_file_path))  # Obtiene la carpeta del archivo .txt
+
+        for i in range(5):
             resp = await getattr(freeGPT, "prodia").Generation().create(prompt) #prodia, pollinations
-            Image.open(BytesIO(resp)).show()
-            print(f"🤖: Imagen mostrada.")
-        except Exception as e:
-            print(f"🤖: {e}")
+            image = Image.open(BytesIO(resp))
+            image.show()
+            
+            # Guardar la imagen en la carpeta de salida con un nombre único
+            image.save(os.path.join(output_folder, f"imagen_{i}.png"))
+            
+            print(f"🤖: Imagen {i + 1} mostrada y guardada en la carpeta de salida.")
+
+    except Exception as e:
+        print(f"🤖: {e}")
 
 if __name__ == "__main__":
     run(main())
-
-Con este código, el programa solicitará al usuario que ingrese la ruta del archivo .txt que contiene el prompt. Luego, leerá el contenido del archivo y generará la imagen correspondiente. Asegúrate de tener el archivo .txt con el prompt en la ruta especificada antes de ejecutar el programa.
