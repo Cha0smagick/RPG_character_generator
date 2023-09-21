@@ -119,25 +119,13 @@ def generar_historia_apellido(apellido):
     final_historia = random.choice(["está lleno de", "ha estado marcado por", "es conocido por"]) + " " + random.choice(["heroicas hazañas", "antiguas leyendas", "poderosos guerreros", "destinos trágicos"])
     return inicio_historia + " " + final_historia + "."
 
-def imprimir_stats(stats):
-    nombres_stats = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma"]
-    for nombre, valor in zip(nombres_stats, stats):
-        print(f"{nombre}: {valor}")
-
-def imprimir_trasfondo_epico(personaje, lugar_magico, transfondo_infancia, tipo_crianza, tipo_voluntad, proposito_vida, apellido):
-    print(f"\n{personaje[0]} {apellido}, {generar_historia_lugar(lugar_magico)} Desde una tierna infancia fue {transfondo_infancia} y recibió una {tipo_crianza} que moldeó su carácter. Posee experiencia porque el {generar_historia_profesion(profesion_personaje)} y ha jurado {proposito_vida}. {generar_historia_apellido(apellido_personaje)}")
-
 # Generar y mostrar el nombre, apellido y sexo del personaje
 nombre_personaje, sexo_personaje = generar_nombre_sexo()
 apellido_personaje = generar_apellido()
 
-print("Nombre del personaje:", nombre_personaje)
-print("Apellido del personaje:", apellido_personaje)
-print("Sexo del personaje:", sexo_personaje)
 
 # Generar y mostrar la profesión del personaje
 profesion_personaje = generar_profesion()
-print("Profesión del personaje:", profesion_personaje)
 
 # Generar y mostrar el trasfondo épico del personaje
 lugar_magico = generar_lugar_magico(sexo_personaje)
@@ -146,12 +134,9 @@ tipo_crianza = generar_tipo_crianza(sexo_personaje)
 tipo_voluntad = generar_tipo_voluntad(sexo_personaje)
 proposito_vida = generar_proposito_vida(sexo_personaje)
 
-imprimir_trasfondo_epico((nombre_personaje, sexo_personaje), lugar_magico, transfondo_infancia, tipo_crianza, tipo_voluntad, proposito_vida, apellido_personaje)
 
 # Generar y mostrar los stats del personaje
 stats_personaje = generar_stats()
-print("\nStats del personaje:")
-imprimir_stats(stats_personaje)
 
 def escribir_info_en_archivo(nombre, apellido, sexo, profesion, lugar_magico, transfondo_infancia, tipo_crianza, tipo_voluntad, proposito_vida, stats):
     with open("personaje.txt", "w") as archivo:
@@ -222,7 +207,7 @@ chat.append({"question": contenido, "answer": ""})
 contenido_filtrado = "\n".join([linea for linea in contenido.splitlines() if not linea.strip().startswith("Entrevistador:")])
 
 # Obtener respuesta del modelo
-respuesta_bot = obtener_respuesta("actúa como un diseñador de personajes de fantasia con maestría en estudios de generación de lore y backgrounds de personajes. A continuación voy a darte la información de un personaje. necesito que me devulevas la hoja de personaje con todas las características imputadas, pero también necesito que a partir de la información imputada le inventes un background épico y añadas ese background a la hoja de personaje como si fuese su pasado. recuerda que es un juego de rol de fantasía así que puedes inventar cuanto quieras. Extiende la historia del background lo que más puedas. devuélveme una hoja de personaje lo más completa y jugable posible.\n\n" + contenido_filtrado, chat)
+respuesta_bot = obtener_respuesta("actúa como un maestro diseñador de personajes de fantasia con maestría en estudios de escritura y generación de lore y backgrounds de personajes. A continuación voy a darte la información de un personaje. necesito que me devulevas la hoja de personaje con todas las características imputadas, pero también necesito que a partir de la información imputada le inventes un background épico muy extenso y detallado con nombres propios fantasticos inventados y asignados para personas y lugares y objetos determinantes para el personaje. tambien inventa y describe caratcerísticas unicas del personaje, asi como habilidades natas con base en sus atributos, fortalezas, fobias, etica y moral, alineacion moral, traumas, personalidad y propósito en la vida, con nombres propios de personajes,lugares y crituras relevantes. Debes añadir ese background a la hoja de personaje como si fuese su pasado personalizado muy extenso y detallado. recuerda que es un juego de rol de fantasía así que puedes inventar cuanto quieras, basado en multiples juegos de rol y eso incluye nombres, lugares, fechas, epocas, tecnologia, magia y lore propio del personaje. Extiende la historia del personaje lo que más puedas con todos los detalles personalizados posibles que puedas añadir. devuélveme una hoja de personaje lo más completa y jugable posible con todas las características solicitadas legibles y con numeros que puedan ser mesurables para cada habilidad, fobia y trauma en una escala apropiada y estandard para todos los stats. tambien debe sinventar una serie de hechizos relacionados a la clase del personaje, teniendo en cuenta que si el personaje esta relacionado con la magia debe tener mas hechizos y si no, debe tener menos relacionados con su propio lore y atributos y características unicas\n\n" + contenido_filtrado, chat)
 
 # Imprimir la respuesta formateada en la consola
 respuesta_bot_legible = codecs.decode(respuesta_bot, 'unicode_escape')
