@@ -149,3 +149,38 @@ stats_personaje = generar_stats()
 print("\nStats del personaje:")
 imprimir_stats(stats_personaje)
 
+def escribir_info_en_archivo(nombre, apellido, sexo, profesion, lugar_magico, transfondo_infancia, tipo_crianza, tipo_voluntad, proposito_vida, stats):
+    with open("personaje.txt", "w") as archivo:
+        archivo.write(f"Nombre del personaje: {nombre} ")
+        archivo.write(f"Apellido del personaje: {apellido} ")
+        archivo.write(f"Sexo del personaje: {sexo} ")
+        archivo.write(f"Profesión del personaje: {profesion} ")
+        archivo.write(f"{nombre} {apellido}, {generar_historia_lugar(lugar_magico)} {generar_historia_apellido(apellido)} ")
+        archivo.write(f"Desde una tierna infancia fue {transfondo_infancia} y recibió una {tipo_crianza} que moldeó su carácter. ")
+        archivo.write(f"Posee experiencia porque el {generar_historia_profesion(profesion)} y ha jurado {proposito_vida}. ")
+        archivo.write("Stats del personaje: ")
+        nombres_stats = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma"]
+        for nombre, valor in zip(nombres_stats, stats):
+            archivo.write(f"{nombre}: {valor} ")
+
+# Generar y mostrar el nombre, apellido y sexo del personaje
+nombre_personaje, sexo_personaje = generar_nombre_sexo()
+apellido_personaje = generar_apellido()
+
+# Generar y mostrar la profesión del personaje
+profesion_personaje = generar_profesion()
+
+# Generar y mostrar el trasfondo épico del personaje
+lugar_magico = generar_lugar_magico(sexo_personaje)
+transfondo_infancia = generar_transfondo_infancia(sexo_personaje)
+tipo_crianza = generar_tipo_crianza(sexo_personaje)
+tipo_voluntad = generar_tipo_voluntad(sexo_personaje)
+proposito_vida = generar_proposito_vida(sexo_personaje)
+
+# Generar y mostrar los stats del personaje
+stats_personaje = generar_stats()
+
+# Llamar a la función para escribir la información en el archivo
+escribir_info_en_archivo(nombre_personaje, apellido_personaje, sexo_personaje, profesion_personaje, lugar_magico, transfondo_infancia, tipo_crianza, tipo_voluntad, proposito_vida, stats_personaje)
+
+print("Información del personaje guardada en 'personaje.txt'")
