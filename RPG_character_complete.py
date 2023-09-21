@@ -1,4 +1,8 @@
 import random
+import os
+from gpt4free import you
+import time
+import codecs
 
 nombres_masculinos = ["Aldric", "Bryce", "Cedric", "Darius", "Edric", "Felix", "Gavin", "Hadrian", "Ivan", "Jareth", "Kael", "Liam", "Malcolm", "Nolan", "Owen", "Percival", "Quentin", "Roland", "Sebastian", "Tristan", "Ulric", "Valerian", "Wesley", "Xavier", "Yorick", "Zephyr"]
 nombres_femeninos = ["Astrid", "Brienne", "Carys", "Dahlia", "Elara", "Fiona", "Gwendolyn", "Helena", "Iris", "Jasmine", "Keira", "Luna", "Morgana", "Nadia", "Ophelia", "Penelope", "Quinn", "Rowan", "Seraphina", "Thalia", "Ursula", "Violet", "Willow", "Xena", "Yara", "Zara"]
@@ -184,9 +188,6 @@ stats_personaje = generar_stats()
 escribir_info_en_archivo(nombre_personaje, apellido_personaje, sexo_personaje, profesion_personaje, lugar_magico, transfondo_infancia, tipo_crianza, tipo_voluntad, proposito_vida, stats_personaje)
 
 print("Información del personaje guardada en 'personaje.txt'")
-import time
-import codecs
-from gpt4free import you
 
 # Función para obtener una respuesta sin "Unable to fetch the response, Please try again."
 def obtener_respuesta(prompt, chat):
@@ -205,7 +206,7 @@ def obtener_respuesta(prompt, chat):
 chat = []
 
 # Pedir al usuario la ruta del archivo .txt
-archivo_txt = input("Por favor, ingresa la ruta del archivo .txt: ")
+archivo_txt = os.path.join(os.getcwd(), "personaje.txt")
 
 try:
     with open(archivo_txt, "r", encoding="utf-8") as archivo_entrada:
