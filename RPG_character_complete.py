@@ -3,6 +3,10 @@ import os
 from gpt4free import you
 import time
 import codecs
+import freeGPT
+from PIL import Image
+from io import BytesIO
+from asyncio import run
 
 nombres_masculinos = ["Aldric", "Bryce", "Cedric", "Darius", "Edric", "Felix", "Gavin", "Hadrian", "Ivan", "Jareth", "Kael", "Liam", "Malcolm", "Nolan", "Owen", "Percival", "Quentin", "Roland", "Sebastian", "Tristan", "Ulric", "Valerian", "Wesley", "Xavier", "Yorick", "Zephyr"]
 nombres_femeninos = ["Astrid", "Brienne", "Carys", "Dahlia", "Elara", "Fiona", "Gwendolyn", "Helena", "Iris", "Jasmine", "Keira", "Luna", "Morgana", "Nadia", "Ophelia", "Penelope", "Quinn", "Rowan", "Seraphina", "Thalia", "Ursula", "Violet", "Willow", "Xena", "Yara", "Zara"]
@@ -218,3 +222,30 @@ with codecs.open("personaje_con_background.txt", "w", "utf-8") as archivo_respue
     archivo_respuestas.write(respuesta_bot_legible)
 
 print("Hoja de personaje con background guardada en 'personaje_con_background.txt'")
+
+async def main():
+    try:
+        # Solicitar la ruta del archivo .txt al usuario
+        txt_file_path = "personaje_con_background.txt"
+
+        # Leer el contenido del archivo .txt
+        with open(txt_file_path, "r") as file:
+            prompt = file.read()
+
+        output_folder = os.path.dirname(os.path.abspath(txt_file_path))  # Obtiene la carpeta del archivo .txt
+
+        for i in range(5):
+            resp = await getattr(freeGPT, "prodia").Generation().create(prompt) #prodia, pollinations
+            image = Image.open(BytesIO(resp))
+            image.show()
+            
+            # Guardar la imagen en la carpeta de salida con un nombre único
+            image.save(os.path.join(output_folder, f"imagen_{i}.png"))
+            
+            print(f"🤖: Imagen {i + 1} mostrada y guardada en la carpeta de salida.")
+
+    except Exception as e:
+        print(f"🤖: {e}")
+
+if __name__ == "__main__":
+    run(main())
