@@ -181,15 +181,18 @@ print("Información del personaje guardada en 'personaje.txt'")
 # Función para obtener una respuesta sin "Unable to fetch the response, Please try again."
 def obtener_respuesta(prompt, chat):
     while True:
-        response = you.Completion.create(
-            prompt=prompt,
-            chat=chat
-        )
-        text = response.text.strip()
-        if text != "Unable to fetch the response, Please try again.":
-            return text
-
-        time.sleep(5)  # Espera 5 segundos antes de intentar nuevamente
+        try:
+            response = you.Completion.create(
+                prompt=prompt,
+                chat=chat
+            )
+            text = response.text.strip()
+            if text != "Unable to fetch the response, Please try again.":
+                return text
+        except Exception as e:
+            print(f"Error al obtener respuesta: {e}")
+            print("Esperando 10 segundos antes de volver a intentarlo...")
+            time.sleep(10)  # Espera 10 segundos antes de intentar nuevamente
 
 # Inicializar el chat vacío
 chat = []
