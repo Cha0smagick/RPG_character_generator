@@ -35,7 +35,7 @@ def to_markdown(text):
     return textwrap.indent(text, '> ', predicate=lambda _: True)
 
 # Configurar la API key de Gemini (reemplazar con tu clave de API de Gemini)
-genai.configure(api_key='AIzaSyCv30EVBXynJjSNZiYkKqc5xx1DovQEaQY')
+genai.configure(api_key='your_google_API_key')
 
 # Streamlit app
 def main():
